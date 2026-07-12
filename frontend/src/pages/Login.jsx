@@ -8,10 +8,97 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
 
-  const handleSubmit = (e) => {
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // For now, redirect to dashboard as mockup behavior
-    navigate('/dashboard');
+    setError('');
+    setSuccess('');
+
+    // Client-side validations
+    if (!isLogin) {
+      if (name.trim().length < 2) {
+        setError('Name must be at least 2 characters');
+        return;
+      }
+      if (name.length > 50) {
+        setError('Name must not exceed 50 characters');
+        return;
+      }
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError('Please enter a valid email address');
+      return;
+    }
+    if (email.length > 100) {
+      setError('Email must not exceed 100 characters');
+      return;
+    }
+
+    if (!isLogin) {
+      if (password.length < 6) {
+        setError('Password must be at least 6 characters');
+        return;
+      }
+      if (password.length > 24) {
+        setError('Password must not exceed 24 characters');
+        return;
+      }
+    }
+
+    if (isLogin) {
+      if (password.length < 1) {
+        setError('Password is required');
+        return;
+      }
+      if (password.length > 24) {
+        setError('Password must not exceed 24 characters');
+        return;
+      }
+    }
+
+    setLoading(true);
+    try {
+      const endpoint = isLogin ? '/api/users/login' : '/api/users/register';
+      const payload = isLogin
+        ? { email: email.toLowerCase().trim(), password }
+        : { name, email: email.toLowerCase().trim(), password };
+
+      const response = await fetch(`http://localhost:5000${endpoint}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        if (data.errors && Array.isArray(data.errors)) {
+          throw new Error(data.errors.map(err => err.message).join(', '));
+        }
+        throw new Error(data.message || 'Authentication failed');
+      }
+
+      if (isLogin) {
+        localStorage.setItem('token', data.data.token);
+        localStorage.setItem('user', JSON.stringify(data.data.user));
+        navigate('/dashboard');
+      } else {
+        setSuccess('Registration successful! Please sign in.');
+        setIsLogin(true);
+        setPassword('');
+      }
+    } catch (err) {
+      setError(err.message || 'Something went wrong');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -32,21 +119,30 @@ const Login = () => {
         <div className="flex border-b border-hairline-violet mb-6">
           <button
             onClick={() => setIsLogin(true)}
-            className={`flex-1 pb-3 text-sm font-semibold border-b-2 transition-colors ${
-              isLogin ? 'border-accent-lime text-white' : 'border-transparent text-on-dark-muted hover:text-white'
-            }`}
+            className={`flex-1 pb-3 text-sm font-semibold border-b-2 transition-colors ${isLogin ? 'border-accent-lime text-white' : 'border-transparent text-on-dark-muted hover:text-white'
+              }`}
           >
             Sign In
           </button>
           <button
             onClick={() => setIsLogin(false)}
-            className={`flex-1 pb-3 text-sm font-semibold border-b-2 transition-colors ${
-              !isLogin ? 'border-accent-lime text-white' : 'border-transparent text-on-dark-muted hover:text-white'
-            }`}
+            className={`flex-1 pb-3 text-sm font-semibold border-b-2 transition-colors ${!isLogin ? 'border-accent-lime text-white' : 'border-transparent text-on-dark-muted hover:text-white'
+              }`}
           >
             Create Account
           </button>
         </div>
+
+        {error && (
+          <div className="bg-accent-pink/10 border border-accent-pink/30 text-accent-pink text-xs p-3 rounded mb-4">
+            {error}
+          </div>
+        )}
+        {success && (
+          <div className="bg-accent-lime/10 border border-accent-lime/30 text-accent-lime text-xs p-3 rounded mb-4">
+            {success}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {!isLogin && (
@@ -59,6 +155,7 @@ const Login = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="John Doe"
+                maxLength={50}
                 className="w-full bg-primary border border-hairline-violet rounded px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-accent-lime transition-colors"
                 required
               />
@@ -74,6 +171,7 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@company.com"
+              maxLength={100}
               className="w-full bg-primary border border-hairline-violet rounded px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-accent-lime transition-colors"
               required
             />
@@ -95,6 +193,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••••••"
+              maxLength={100}
               className="w-full bg-primary border border-hairline-violet rounded px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-accent-lime transition-colors"
               required
             />
@@ -102,9 +201,10 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-accent-lime hover:bg-accent-lime/90 text-primary font-bold py-3 rounded text-sm transition-colors mt-6"
+            disabled={loading}
+            className="w-full bg-accent-lime hover:bg-accent-lime/90 text-primary font-bold py-3 rounded text-sm transition-colors mt-6 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLogin ? 'Sign In' : 'Create Account'}
+            {loading ? 'Processing...' : (isLogin ? 'Sign In' : 'Create Account')}
           </button>
         </form>
 

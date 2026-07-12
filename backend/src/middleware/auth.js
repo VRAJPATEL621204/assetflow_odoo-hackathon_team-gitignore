@@ -25,7 +25,19 @@ const authMiddleware = (req, res, next) => {
 
 const requirePermission = (permission) => {
   return (req, res, next) => {
-    if (!req.user || !req.user.permissions.includes(permission)) {
+    if (!req.user) {
+      return res.status(403).json({
+        success: false,
+        message: 'Forbidden. Insufficient permissions.',
+      });
+    }
+    
+    // ADMIN role gets master bypass access to all operations
+    if (req.user.roles && req.user.roles.includes('ADMIN')) {
+      return next();
+    }
+
+    if (!req.user.permissions || !req.user.permissions.includes(permission)) {
       return res.status(403).json({
         success: false,
         message: 'Forbidden. Insufficient permissions.',

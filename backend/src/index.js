@@ -3,6 +3,13 @@ const express = require('express');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 const userRoutes = require('./routes/userRoutes');
+const organizationRoutes = require('./routes/organizationRoutes');
+const assetRoutes = require('./routes/assetRoutes');
+const allocationRoutes = require('./routes/allocationRoutes');
+const bookingRoutes = require('./routes/bookingRoutes');
+const maintenanceRoutes = require('./routes/maintenanceRoutes');
+const auditRoutes = require('./routes/auditRoutes');
+const reportRoutes = require('./routes/reportRoutes');
 const errorHandler = require('./middleware/errorHandler');
 const prisma = require('./config/prisma');
 
@@ -27,6 +34,13 @@ app.use(express.json());
 
 // Application Routes
 app.use('/api/users', authLimiter, userRoutes);
+app.use('/api/org', organizationRoutes);
+app.use('/api/assets', assetRoutes);
+app.use('/api/allocations', allocationRoutes);
+app.use('/api/bookings', bookingRoutes);
+app.use('/api/maintenance', maintenanceRoutes);
+app.use('/api/audits', auditRoutes);
+app.use('/api/reports', reportRoutes);
 
 // Root / Healthcheck endpoint
 app.get('/health', async (req, res) => {

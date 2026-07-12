@@ -24,7 +24,7 @@ class UserRepository {
 
   async findById(id) {
     return prisma.user.findUnique({
-      where: { id },
+      where: { id: parseInt(id) },
       include: {
         department: true,
         userRoles: {
@@ -37,14 +37,36 @@ class UserRepository {
   }
 
   async create(userData) {
-    return prisma.user.create({
-      data: {
-        email: userData.email,
-        passwordHash: userData.passwordHash,
-        name: userData.name,
-        status: userData.status || 'ACTIVE',
-        departmentId: userData.departmentId,
-      },
+    return prisma.$transaction(async (tx) => {
+      // Find default EMPLOYEE role
+      const employeeRole = await tx.role.findUnique({
+        where: { name: 'EMPLOYEE' },
+      });
+
+      if (!employeeRole) {
+        throw new Error('Default role EMPLOYEE not found in database');
+      }
+
+      // Create user
+      const user = await tx.user.create({
+        data: {
+          email: userData.email,
+          passwordHash: userData.passwordHash,
+          name: userData.name,
+          status: userData.status || 'ACTIVE',
+          departmentId: userData.departmentId,
+        },
+      });
+
+      // Assign role
+      await tx.userRole.create({
+        data: {
+          userId: user.id,
+          roleId: employeeRole.id,
+        },
+      });
+
+      return user;
     });
   }
 
