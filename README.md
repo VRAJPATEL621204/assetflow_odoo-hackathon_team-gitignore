@@ -499,7 +499,7 @@ docker-compose down -v
 
 ## Team
 
-**Team GitIgnore** — Built during the Odoo Hackathon 2026
+**Team gitignore** — Built during the Odoo Hackathon 2026
 
 ---
 
