@@ -34,8 +34,8 @@ const ResourceBooking = () => {
       const headers = { 'Authorization': `Bearer ${token}` };
 
       const [resRes, bookRes] = await Promise.all([
-        fetch('${API_BASE_URL}/api/bookings/resources', { headers }),
-        fetch('${API_BASE_URL}/api/bookings', { headers }),
+        fetch(`${API_BASE_URL}/api/bookings/resources`, { headers }),
+        fetch(`${API_BASE_URL}/api/bookings`, { headers }),
       ]);
 
       const resList = await resRes.json();
@@ -78,7 +78,7 @@ const ResourceBooking = () => {
         endTime: new Date(endTime).toISOString(),
       };
 
-      const response = await fetch('${API_BASE_URL}/api/bookings', {
+      const response = await fetch(`${API_BASE_URL}/api/bookings`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -117,7 +117,7 @@ const ResourceBooking = () => {
         description: newResourceDesc || null,
       };
 
-      const response = await fetch('${API_BASE_URL}/api/bookings/resources', {
+      const response = await fetch(`${API_BASE_URL}/api/bookings/resources`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

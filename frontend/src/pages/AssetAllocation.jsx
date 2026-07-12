@@ -40,11 +40,11 @@ const AssetAllocation = () => {
       const headers = { 'Authorization': `Bearer ${token}` };
 
       const [empRes, deptRes, assetRes, allocRes, transRes] = await Promise.all([
-        fetch('${API_BASE_URL}/api/org/employees', { headers }),
-        fetch('${API_BASE_URL}/api/org/departments', { headers }),
-        fetch('${API_BASE_URL}/api/assets', { headers }),
-        fetch('${API_BASE_URL}/api/allocations', { headers }),
-        fetch('${API_BASE_URL}/api/allocations/transfers', { headers }),
+        fetch(`${API_BASE_URL}/api/org/employees`, { headers }),
+        fetch(`${API_BASE_URL}/api/org/departments`, { headers }),
+        fetch(`${API_BASE_URL}/api/assets`, { headers }),
+        fetch(`${API_BASE_URL}/api/allocations`, { headers }),
+        fetch(`${API_BASE_URL}/api/allocations/transfers`, { headers }),
       ]);
 
       const emps = await empRes.json();
@@ -107,7 +107,7 @@ const AssetAllocation = () => {
         expectedReturnDate: expectedReturnDate || null,
       };
 
-      const response = await fetch('${API_BASE_URL}/api/allocations', {
+      const response = await fetch(`${API_BASE_URL}/api/allocations`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -153,7 +153,7 @@ const AssetAllocation = () => {
         reason,
       };
 
-      const response = await fetch('${API_BASE_URL}/api/allocations/transfers', {
+      const response = await fetch(`${API_BASE_URL}/api/allocations/transfers`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

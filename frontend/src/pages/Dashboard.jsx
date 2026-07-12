@@ -36,7 +36,7 @@ const Dashboard = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await fetch('${API_BASE_URL}/api/reports/dashboard', {
+      const response = await fetch(`${API_BASE_URL}/api/reports/dashboard`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -48,7 +48,7 @@ const Dashboard = () => {
       }
 
       // Fetch top 5 notifications
-      const notifResponse = await fetch('${API_BASE_URL}/api/reports/notifications', {
+      const notifResponse = await fetch(`${API_BASE_URL}/api/reports/notifications`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },

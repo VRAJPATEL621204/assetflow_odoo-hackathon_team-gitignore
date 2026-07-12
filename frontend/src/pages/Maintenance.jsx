@@ -41,9 +41,9 @@ const Maintenance = () => {
     try {
       const headers = { 'Authorization': `Bearer ${token}` };
       const [reqRes, techRes, assetRes] = await Promise.all([
-        fetch('${API_BASE_URL}/api/maintenance/requests', { headers }),
-        fetch('${API_BASE_URL}/api/maintenance/technicians', { headers }),
-        fetch('${API_BASE_URL}/api/assets', { headers }),
+        fetch(`${API_BASE_URL}/api/maintenance/requests`, { headers }),
+        fetch(`${API_BASE_URL}/api/maintenance/technicians`, { headers }),
+        fetch(`${API_BASE_URL}/api/assets`, { headers }),
       ]);
 
       const reqs = await reqRes.json();
@@ -88,7 +88,7 @@ const Maintenance = () => {
         priority: formPriority,
       };
 
-      const response = await fetch('${API_BASE_URL}/api/maintenance/requests', {
+      const response = await fetch(`${API_BASE_URL}/api/maintenance/requests`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

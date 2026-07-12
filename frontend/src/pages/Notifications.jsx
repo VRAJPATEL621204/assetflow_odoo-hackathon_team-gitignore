@@ -35,7 +35,7 @@ const Notifications = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await fetch('${API_BASE_URL}/api/reports/notifications', {
+      const response = await fetch(`${API_BASE_URL}/api/reports/notifications`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -62,7 +62,7 @@ const Notifications = () => {
     setError('');
     setSuccessMsg('');
     try {
-      const response = await fetch('${API_BASE_URL}/api/reports/notifications/read', {
+      const response = await fetch(`${API_BASE_URL}/api/reports/notifications/read`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -107,7 +107,7 @@ const Notifications = () => {
     setError('');
     setSuccessMsg('');
     try {
-      const response = await fetch('${API_BASE_URL}/api/reports/notifications/alert', {
+      const response = await fetch(`${API_BASE_URL}/api/reports/notifications/alert`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -140,7 +140,7 @@ const Notifications = () => {
     setError('');
     setSuccessMsg('');
     try {
-      const response = await fetch('${API_BASE_URL}/api/reports/notifications/seed-contextual', {
+      const response = await fetch(`${API_BASE_URL}/api/reports/notifications/seed-contextual`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

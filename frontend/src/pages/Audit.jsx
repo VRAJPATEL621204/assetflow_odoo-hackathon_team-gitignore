@@ -39,9 +39,9 @@ const Audit = () => {
     try {
       const headers = { 'Authorization': `Bearer ${token}` };
       const [cycleRes, assetRes, empRes] = await Promise.all([
-        fetch('${API_BASE_URL}/api/audits/cycles', { headers }),
-        fetch('${API_BASE_URL}/api/assets', { headers }),
-        fetch('${API_BASE_URL}/api/org/employees', { headers }),
+        fetch(`${API_BASE_URL}/api/audits/cycles`, { headers }),
+        fetch(`${API_BASE_URL}/api/assets`, { headers }),
+        fetch(`${API_BASE_URL}/api/org/employees`, { headers }),
       ]);
 
       const cycleList = await cycleRes.json();
@@ -99,7 +99,7 @@ const Audit = () => {
         auditorIds: selectedAuditors.map(id => parseInt(id)),
       };
 
-      const response = await fetch('${API_BASE_URL}/api/audits/cycles', {
+      const response = await fetch(`${API_BASE_URL}/api/audits/cycles`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -136,7 +136,7 @@ const Audit = () => {
     }
 
     try {
-      const response = await fetch('${API_BASE_URL}/api/audits/verify', {
+      const response = await fetch(`${API_BASE_URL}/api/audits/verify`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
