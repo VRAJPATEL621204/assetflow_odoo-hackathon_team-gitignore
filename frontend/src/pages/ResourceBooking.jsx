@@ -1,3 +1,4 @@
+import API_BASE_URL from '../config/api';
 import React, { useState, useEffect } from 'react';
 import { Calendar, AlertCircle, Trash2 } from 'lucide-react';
 
@@ -33,8 +34,8 @@ const ResourceBooking = () => {
       const headers = { 'Authorization': `Bearer ${token}` };
 
       const [resRes, bookRes] = await Promise.all([
-        fetch('http://localhost:5000/api/bookings/resources', { headers }),
-        fetch('http://localhost:5000/api/bookings', { headers }),
+        fetch('${API_BASE_URL}/api/bookings/resources', { headers }),
+        fetch('${API_BASE_URL}/api/bookings', { headers }),
       ]);
 
       const resList = await resRes.json();
@@ -77,7 +78,7 @@ const ResourceBooking = () => {
         endTime: new Date(endTime).toISOString(),
       };
 
-      const response = await fetch('http://localhost:5000/api/bookings', {
+      const response = await fetch('${API_BASE_URL}/api/bookings', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -116,7 +117,7 @@ const ResourceBooking = () => {
         description: newResourceDesc || null,
       };
 
-      const response = await fetch('http://localhost:5000/api/bookings/resources', {
+      const response = await fetch('${API_BASE_URL}/api/bookings/resources', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -143,7 +144,7 @@ const ResourceBooking = () => {
     setError('');
     setSuccess('');
     try {
-      const response = await fetch(`http://localhost:5000/api/bookings/${bookingId}/cancel`, {
+      const response = await fetch(`${API_BASE_URL}/api/bookings/${bookingId}/cancel`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

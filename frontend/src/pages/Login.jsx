@@ -1,3 +1,4 @@
+import API_BASE_URL from '../config/api';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -68,7 +69,7 @@ const Login = () => {
         ? { email: email.toLowerCase().trim(), password }
         : { name, email: email.toLowerCase().trim(), password };
 
-      const response = await fetch(`http://localhost:5000${endpoint}`, {
+      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

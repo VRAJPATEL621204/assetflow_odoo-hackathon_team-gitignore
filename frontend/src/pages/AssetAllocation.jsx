@@ -1,3 +1,4 @@
+import API_BASE_URL from '../config/api';
 import React, { useState, useEffect } from 'react';
 import { AlertCircle, History, Check, X } from 'lucide-react';
 
@@ -39,11 +40,11 @@ const AssetAllocation = () => {
       const headers = { 'Authorization': `Bearer ${token}` };
 
       const [empRes, deptRes, assetRes, allocRes, transRes] = await Promise.all([
-        fetch('http://localhost:5000/api/org/employees', { headers }),
-        fetch('http://localhost:5000/api/org/departments', { headers }),
-        fetch('http://localhost:5000/api/assets', { headers }),
-        fetch('http://localhost:5000/api/allocations', { headers }),
-        fetch('http://localhost:5000/api/allocations/transfers', { headers }),
+        fetch('${API_BASE_URL}/api/org/employees', { headers }),
+        fetch('${API_BASE_URL}/api/org/departments', { headers }),
+        fetch('${API_BASE_URL}/api/assets', { headers }),
+        fetch('${API_BASE_URL}/api/allocations', { headers }),
+        fetch('${API_BASE_URL}/api/allocations/transfers', { headers }),
       ]);
 
       const emps = await empRes.json();
@@ -106,7 +107,7 @@ const AssetAllocation = () => {
         expectedReturnDate: expectedReturnDate || null,
       };
 
-      const response = await fetch('http://localhost:5000/api/allocations', {
+      const response = await fetch('${API_BASE_URL}/api/allocations', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -152,7 +153,7 @@ const AssetAllocation = () => {
         reason,
       };
 
-      const response = await fetch('http://localhost:5000/api/allocations/transfers', {
+      const response = await fetch('${API_BASE_URL}/api/allocations/transfers', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -181,7 +182,7 @@ const AssetAllocation = () => {
     setSuccess('');
 
     try {
-      const response = await fetch(`http://localhost:5000/api/allocations/${activeReturnAllocId}/return`, {
+      const response = await fetch(`${API_BASE_URL}/api/allocations/${activeReturnAllocId}/return`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -211,7 +212,7 @@ const AssetAllocation = () => {
     setError('');
     setSuccess('');
     try {
-      const response = await fetch(`http://localhost:5000/api/allocations/transfers/${transferId}/${action}`, {
+      const response = await fetch(`${API_BASE_URL}/api/allocations/transfers/${transferId}/${action}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

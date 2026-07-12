@@ -1,3 +1,4 @@
+import API_BASE_URL from '../config/api';
 import React, { useState, useEffect } from 'react';
 import { Check, AlertTriangle, XOctagon } from 'lucide-react';
 
@@ -38,9 +39,9 @@ const Audit = () => {
     try {
       const headers = { 'Authorization': `Bearer ${token}` };
       const [cycleRes, assetRes, empRes] = await Promise.all([
-        fetch('http://localhost:5000/api/audits/cycles', { headers }),
-        fetch('http://localhost:5000/api/assets', { headers }),
-        fetch('http://localhost:5000/api/org/employees', { headers }),
+        fetch('${API_BASE_URL}/api/audits/cycles', { headers }),
+        fetch('${API_BASE_URL}/api/assets', { headers }),
+        fetch('${API_BASE_URL}/api/org/employees', { headers }),
       ]);
 
       const cycleList = await cycleRes.json();
@@ -98,7 +99,7 @@ const Audit = () => {
         auditorIds: selectedAuditors.map(id => parseInt(id)),
       };
 
-      const response = await fetch('http://localhost:5000/api/audits/cycles', {
+      const response = await fetch('${API_BASE_URL}/api/audits/cycles', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -135,7 +136,7 @@ const Audit = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/audits/verify', {
+      const response = await fetch('${API_BASE_URL}/api/audits/verify', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -167,7 +168,7 @@ const Audit = () => {
     setError('');
     setSuccess('');
     try {
-      const response = await fetch(`http://localhost:5000/api/audits/cycles/${selectedCycleId}/close`, {
+      const response = await fetch(`${API_BASE_URL}/api/audits/cycles/${selectedCycleId}/close`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

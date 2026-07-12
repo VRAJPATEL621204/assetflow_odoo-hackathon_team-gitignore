@@ -1,3 +1,4 @@
+import API_BASE_URL from '../config/api';
 import React, { useState, useEffect } from 'react';
 import { Sparkles, ArrowRight, Check } from 'lucide-react';
 
@@ -40,9 +41,9 @@ const Maintenance = () => {
     try {
       const headers = { 'Authorization': `Bearer ${token}` };
       const [reqRes, techRes, assetRes] = await Promise.all([
-        fetch('http://localhost:5000/api/maintenance/requests', { headers }),
-        fetch('http://localhost:5000/api/maintenance/technicians', { headers }),
-        fetch('http://localhost:5000/api/assets', { headers }),
+        fetch('${API_BASE_URL}/api/maintenance/requests', { headers }),
+        fetch('${API_BASE_URL}/api/maintenance/technicians', { headers }),
+        fetch('${API_BASE_URL}/api/assets', { headers }),
       ]);
 
       const reqs = await reqRes.json();
@@ -87,7 +88,7 @@ const Maintenance = () => {
         priority: formPriority,
       };
 
-      const response = await fetch('http://localhost:5000/api/maintenance/requests', {
+      const response = await fetch('${API_BASE_URL}/api/maintenance/requests', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -116,7 +117,7 @@ const Maintenance = () => {
     setSuccess('');
 
     try {
-      const response = await fetch(`http://localhost:5000/api/maintenance/requests/${activeRequest.id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/maintenance/requests/${activeRequest.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -145,7 +146,7 @@ const Maintenance = () => {
     setError('');
     setSuccess('');
     try {
-      const response = await fetch(`http://localhost:5000/api/maintenance/requests/${reqId}`, {
+      const response = await fetch(`${API_BASE_URL}/api/maintenance/requests/${reqId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -172,7 +173,7 @@ const Maintenance = () => {
     setSuccess('');
 
     try {
-      const response = await fetch(`http://localhost:5000/api/maintenance/requests/${activeRequest.id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/maintenance/requests/${activeRequest.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -205,7 +206,7 @@ const Maintenance = () => {
     setError('');
     setSuccess('');
     try {
-      const response = await fetch(`http://localhost:5000/api/maintenance/requests/${reqId}`, {
+      const response = await fetch(`${API_BASE_URL}/api/maintenance/requests/${reqId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import API_BASE_URL from '../config/api';
 import { Link, useLocation, Outlet, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard,
@@ -27,7 +28,7 @@ const MainLayout = () => {
     const token = localStorage.getItem('token');
     if (!token) return;
     try {
-      const response = await fetch('http://localhost:5000/api/reports/notifications', {
+      const response = await fetch(`${API_BASE_URL}/api/reports/notifications`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -46,7 +47,7 @@ const MainLayout = () => {
   const handleMarkAllRead = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch('http://localhost:5000/api/reports/notifications/read', {
+      const response = await fetch(`${API_BASE_URL}/api/reports/notifications/read`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -63,7 +64,7 @@ const MainLayout = () => {
   const handleMarkSingleRead = async (id) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`http://localhost:5000/api/reports/notifications/${id}/read`, {
+      const response = await fetch(`${API_BASE_URL}/api/reports/notifications/${id}/read`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

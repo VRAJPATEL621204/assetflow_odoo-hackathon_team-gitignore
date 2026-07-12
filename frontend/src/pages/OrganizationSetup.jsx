@@ -1,3 +1,4 @@
+import API_BASE_URL from '../config/api';
 import React, { useState, useEffect } from 'react';
 
 const OrganizationSetup = () => {
@@ -44,11 +45,11 @@ const OrganizationSetup = () => {
       };
 
       const [deptRes, catRes, empRes, locRes, techRes] = await Promise.all([
-        fetch('http://localhost:5000/api/org/departments', { headers }),
-        fetch('http://localhost:5000/api/org/categories', { headers }),
-        fetch('http://localhost:5000/api/org/employees', { headers }),
-        fetch('http://localhost:5000/api/org/locations', { headers }),
-        fetch('http://localhost:5000/api/maintenance/technicians', { headers }),
+        fetch('${API_BASE_URL}/api/org/departments', { headers }),
+        fetch('${API_BASE_URL}/api/org/categories', { headers }),
+        fetch('${API_BASE_URL}/api/org/employees', { headers }),
+        fetch('${API_BASE_URL}/api/org/locations', { headers }),
+        fetch('${API_BASE_URL}/api/maintenance/technicians', { headers }),
       ]);
 
       const depts = await deptRes.json();
@@ -86,7 +87,7 @@ const OrganizationSetup = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/org/departments', {
+      const response = await fetch('${API_BASE_URL}/api/org/departments', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -131,7 +132,7 @@ const OrganizationSetup = () => {
     const filteredFields = catFields.filter(f => f.fieldName.trim().length > 0);
 
     try {
-      const response = await fetch('http://localhost:5000/api/org/categories', {
+      const response = await fetch('${API_BASE_URL}/api/org/categories', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -172,7 +173,7 @@ const OrganizationSetup = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/org/locations', {
+      const response = await fetch('${API_BASE_URL}/api/org/locations', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -213,7 +214,7 @@ const OrganizationSetup = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/maintenance/technicians', {
+      const response = await fetch('${API_BASE_URL}/api/maintenance/technicians', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -249,7 +250,7 @@ const OrganizationSetup = () => {
     setError('');
     setSuccess('');
     try {
-      const response = await fetch(`http://localhost:5000/api/org/employees/${userId}/role`, {
+      const response = await fetch(`${API_BASE_URL}/api/org/employees/${userId}/role`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

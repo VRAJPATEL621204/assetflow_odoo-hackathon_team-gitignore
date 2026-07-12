@@ -1,3 +1,4 @@
+import API_BASE_URL from '../config/api';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
@@ -35,7 +36,7 @@ const Dashboard = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await fetch('http://localhost:5000/api/reports/dashboard', {
+      const response = await fetch('${API_BASE_URL}/api/reports/dashboard', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -47,7 +48,7 @@ const Dashboard = () => {
       }
 
       // Fetch top 5 notifications
-      const notifResponse = await fetch('http://localhost:5000/api/reports/notifications', {
+      const notifResponse = await fetch('${API_BASE_URL}/api/reports/notifications', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },

@@ -1,3 +1,4 @@
+import API_BASE_URL from '../config/api';
 import React, { useState, useEffect } from 'react';
 import { Search } from 'lucide-react';
 
@@ -39,7 +40,7 @@ const AssetDirectory = () => {
       if (selectedCategory) params.append('categoryId', selectedCategory);
       if (selectedStatus) params.append('status', selectedStatus);
 
-      const response = await fetch(`http://localhost:5000/api/assets?${params.toString()}`, { headers });
+      const response = await fetch(`${API_BASE_URL}/api/assets?${params.toString()}`, { headers });
       const data = await response.json();
       if (data.success) {
         setAssets(data.data);
@@ -55,8 +56,8 @@ const AssetDirectory = () => {
     try {
       const headers = { 'Authorization': `Bearer ${token}` };
       const [catRes, locRes] = await Promise.all([
-        fetch('http://localhost:5000/api/org/categories', { headers }),
-        fetch('http://localhost:5000/api/org/locations', { headers }),
+        fetch('${API_BASE_URL}/api/org/categories', { headers }),
+        fetch('${API_BASE_URL}/api/org/locations', { headers }),
       ]);
 
       const cats = await catRes.json();
@@ -110,7 +111,7 @@ const AssetDirectory = () => {
         fieldValues: formFieldValues,
       };
 
-      const response = await fetch('http://localhost:5000/api/assets', {
+      const response = await fetch('${API_BASE_URL}/api/assets', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

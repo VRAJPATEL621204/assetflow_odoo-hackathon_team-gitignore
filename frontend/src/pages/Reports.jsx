@@ -1,3 +1,4 @@
+import API_BASE_URL from '../config/api';
 import React, { useState, useEffect } from 'react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
@@ -34,9 +35,9 @@ const Reports = () => {
     try {
       const h = { Authorization: `Bearer ${TOKEN()}` };
       const [uRes, dRes, mRes] = await Promise.all([
-        fetch('http://localhost:5000/api/reports/utilization',          { headers: h }),
-        fetch('http://localhost:5000/api/reports/dept-utilization',     { headers: h }),
-        fetch('http://localhost:5000/api/reports/maintenance-frequency', { headers: h }),
+        fetch('${API_BASE_URL}/api/reports/utilization',          { headers: h }),
+        fetch('${API_BASE_URL}/api/reports/dept-utilization',     { headers: h }),
+        fetch('${API_BASE_URL}/api/reports/maintenance-frequency', { headers: h }),
       ]);
       const [uData, dData, mData] = await Promise.all([uRes.json(), dRes.json(), mRes.json()]);
       if (uData.success) setUtilizationData(uData.data);
