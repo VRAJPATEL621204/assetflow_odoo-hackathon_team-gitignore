@@ -330,7 +330,7 @@ const Audit = () => {
                               }}
                               className={`p-1.5 rounded transition-colors ${
                                 currentVerifyStatus === 'DAMAGED'
-                                  ? 'bg-accent-violet/20 text-accent-violet border border-accent-violet/40'
+                                  ? 'bg-primary border border-hairline-violet text-on-dark-muted hover:bg-accent-violet/20 hover:text-accent-violet hover:border-accent-violet/40'
                                   : 'bg-primary border border-hairline-violet text-on-dark-muted hover:border-accent-violet/50'
                               }`}
                               title="Flag Damaged"
@@ -372,7 +372,7 @@ const Audit = () => {
         <div className="pt-4 border-t border-hairline-violet flex justify-end">
           <button
             onClick={handleCloseCycle}
-            className="bg-accent-pink hover:bg-accent-pink/90 text-white px-5 py-2.5 rounded text-xs font-bold transition-colors"
+            className="bg-accent-pink hover:bg-accent-pink/90 text-[#ffffff] px-5 py-2.5 rounded text-xs font-bold transition-colors"
           >
             Close & Lock Audit Cycle
           </button>

@@ -134,26 +134,26 @@ const Reports = () => {
           {deptData.length > 0 ? (
             <ResponsiveContainer width="100%" height={200}>
               <BarChart data={deptData} margin={{ top: 4, right: 8, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#2a1f4e" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#cbd5e1" />
                 <XAxis
                   dataKey="department"
-                  tick={{ fill: '#8b7eb8', fontSize: 10 }}
-                  axisLine={{ stroke: '#2a1f4e' }}
+                  tick={{ fill: '#5c6c7a', fontSize: 10 }}
+                  axisLine={{ stroke: '#cbd5e1' }}
                   tickLine={false}
                 />
                 <YAxis
-                  tick={{ fill: '#8b7eb8', fontSize: 10 }}
-                  axisLine={{ stroke: '#2a1f4e' }}
+                  tick={{ fill: '#5c6c7a', fontSize: 10 }}
+                  axisLine={{ stroke: '#cbd5e1' }}
                   tickLine={false}
                   allowDecimals={false}
                 />
                 <Tooltip content={<ChartTooltip />} />
                 <Legend
-                  wrapperStyle={{ fontSize: '10px', color: '#8b7eb8', paddingTop: '8px' }}
+                  wrapperStyle={{ fontSize: '10px', color: '#5c6c7a', paddingTop: '8px' }}
                 />
-                <Bar dataKey="allocated" name="Allocated" fill="#b8ff57" radius={[3, 3, 0, 0]} />
-                <Bar dataKey="available" name="Available" fill="#5b3fd4" radius={[3, 3, 0, 0]} />
-                <Bar dataKey="maintenance" name="In Repair" fill="#ff4081" radius={[3, 3, 0, 0]} />
+                <Bar dataKey="allocated" name="Allocated" fill="#00a35c" radius={[3, 3, 0, 0]} />
+                <Bar dataKey="available" name="Available" fill="#dc2626" radius={[3, 3, 0, 0]} />
+                <Bar dataKey="maintenance" name="In Repair" fill="#38bdf8" radius={[3, 3, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           ) : (
@@ -162,59 +162,59 @@ const Reports = () => {
             </div>
           )}
         </div>
-
+ 
         {/* Line Chart – Maintenance Frequency */}
         <div className="bg-ink-deep border border-hairline-violet rounded-lg p-6 space-y-4">
           <div>
             <span className="text-xs text-on-dark-muted font-bold uppercase tracking-wider block">Trend Analysis</span>
             <h3 className="text-sm font-bold text-white mt-1">Maintenance Frequency</h3>
           </div>
-
+ 
           {maintenanceData.length > 0 ? (
             <ResponsiveContainer width="100%" height={200}>
               <LineChart data={maintenanceData} margin={{ top: 4, right: 8, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#2a1f4e" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#cbd5e1" />
                 <XAxis
                   dataKey="month"
-                  tick={{ fill: '#8b7eb8', fontSize: 10 }}
-                  axisLine={{ stroke: '#2a1f4e' }}
+                  tick={{ fill: '#5c6c7a', fontSize: 10 }}
+                  axisLine={{ stroke: '#cbd5e1' }}
                   tickLine={false}
                 />
                 <YAxis
-                  tick={{ fill: '#8b7eb8', fontSize: 10 }}
-                  axisLine={{ stroke: '#2a1f4e' }}
+                  tick={{ fill: '#5c6c7a', fontSize: 10 }}
+                  axisLine={{ stroke: '#cbd5e1' }}
                   tickLine={false}
                   allowDecimals={false}
                 />
                 <Tooltip content={<ChartTooltip />} />
                 <Legend
-                  wrapperStyle={{ fontSize: '10px', color: '#8b7eb8', paddingTop: '8px' }}
+                  wrapperStyle={{ fontSize: '10px', color: '#5c6c7a', paddingTop: '8px' }}
                 />
                 <Line
                   type="monotone"
                   dataKey="total"
                   name="Total Requests"
-                  stroke="#b8ff57"
+                  stroke="#00a35c"
                   strokeWidth={2}
-                  dot={{ r: 3, fill: '#b8ff57' }}
+                  dot={{ r: 3, fill: '#00a35c' }}
                   activeDot={{ r: 5 }}
                 />
                 <Line
                   type="monotone"
                   dataKey="resolved"
                   name="Resolved"
-                  stroke="#5b3fd4"
+                  stroke="#dc2626"
                   strokeWidth={2}
-                  dot={{ r: 3, fill: '#5b3fd4' }}
+                  dot={{ r: 3, fill: '#dc2626' }}
                   strokeDasharray="4 2"
                 />
                 <Line
                   type="monotone"
                   dataKey="pending"
                   name="Pending"
-                  stroke="#ff4081"
+                  stroke="#38bdf8"
                   strokeWidth={2}
-                  dot={{ r: 3, fill: '#ff4081' }}
+                  dot={{ r: 3, fill: '#38bdf8' }}
                   strokeDasharray="4 2"
                 />
               </LineChart>

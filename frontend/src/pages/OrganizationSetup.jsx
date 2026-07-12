@@ -402,10 +402,29 @@ const OrganizationSetup = () => {
                     categories.map((cat) => (
                       <tr key={cat.id} className="hover:bg-primary/20">
                         <td className="py-3 text-white font-medium">{cat.name}</td>
-                        <td className="py-3 text-on-dark-muted">
-                          {cat.customFields && cat.customFields.length > 0 
-                            ? cat.customFields.map(f => `${f.fieldName} (${f.fieldType}${f.isRequired ? '*' : ''})`).join(', ')
-                            : 'None'}
+                        <td className="py-3">
+                          {cat.customFields && cat.customFields.length > 0 ? (
+                            <div className="flex flex-wrap gap-2.5">
+                              {cat.customFields.map((f, idx) => {
+                                const typeLabel = f.fieldType === 'string' ? 'Text' : f.fieldType === 'number' ? 'Number' : f.fieldType === 'boolean' ? 'Boolean' : f.fieldType;
+                                return (
+                                  <span key={idx} className="inline-flex items-center gap-2 px-3 py-1 rounded bg-primary border border-hairline-violet text-xs font-medium">
+                                    <span className="text-white font-semibold">{f.fieldName}</span>
+                                    <span className="px-1.5 py-0.5 text-[9px] rounded bg-accent-violet-deep text-accent-lime font-bold uppercase tracking-wider">
+                                      {typeLabel}
+                                    </span>
+                                    {f.isRequired && (
+                                      <span className="px-1.5 py-0.5 text-[9px] rounded bg-accent-pink/15 text-accent-pink border border-accent-pink/20 font-bold uppercase tracking-wider">
+                                        Required
+                                      </span>
+                                    )}
+                                  </span>
+                                );
+                              })}
+                            </div>
+                          ) : (
+                            <span className="text-xs text-on-dark-muted">None</span>
+                          )}
                         </td>
                       </tr>
                     ))

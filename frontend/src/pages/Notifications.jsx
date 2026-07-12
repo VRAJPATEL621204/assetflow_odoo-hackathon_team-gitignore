@@ -277,7 +277,7 @@ const Notifications = () => {
           return (
             <div 
               key={n.id} 
-              className={`flex justify-between items-center p-4 border rounded-md transition-all ${
+              className={`flex justify-between items-center p-4 border rounded-md transition-all group ${
                 n.isRead 
                   ? 'bg-primary/10 border-hairline-violet/20 hover:border-hairline-violet/50' 
                   : 'bg-accent-violet-deep/10 border-accent-violet/50 hover:border-accent-violet/80 shadow-[0_0_15px_rgba(91,63,212,0.05)]'
@@ -324,7 +324,7 @@ const Notifications = () => {
                 <button
                   onClick={() => handleMarkSingleRead(n.id)}
                   title="Mark as read"
-                  className="p-1.5 rounded-full border border-hairline-violet text-on-dark-muted hover:text-accent-lime hover:border-accent-lime transition-all ml-4"
+                  className="p-1.5 rounded-full border border-hairline-violet text-on-dark-muted hover:text-accent-lime hover:border-accent-lime transition-all ml-4 opacity-0 group-hover:opacity-100"
                 >
                   <Check className="w-3.5 h-3.5" />
                 </button>

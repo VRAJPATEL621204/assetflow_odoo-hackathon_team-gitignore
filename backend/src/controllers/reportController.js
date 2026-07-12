@@ -21,8 +21,8 @@ class ReportController {
 
   getNotifications = async (req, res, next) => {
     try {
-      const isAdmin = req.user.roles && req.user.roles.includes('ADMIN');
-      const notifications = await reportService.getUserNotifications(req.user.id, isAdmin);
+      const isManagerOrAdmin = req.user.roles && (req.user.roles.includes('ADMIN') || req.user.roles.includes('ASSET_MANAGER'));
+      const notifications = await reportService.getUserNotifications(req.user.id, isManagerOrAdmin);
       return res.status(200).json({ success: true, data: notifications });
     } catch (error) {
       next(error);
@@ -31,8 +31,8 @@ class ReportController {
 
   markNotificationsRead = async (req, res, next) => {
     try {
-      const isAdmin = req.user.roles && req.user.roles.includes('ADMIN');
-      await reportService.markNotificationsRead(req.user.id, isAdmin);
+      const isManagerOrAdmin = req.user.roles && (req.user.roles.includes('ADMIN') || req.user.roles.includes('ASSET_MANAGER'));
+      await reportService.markNotificationsRead(req.user.id, isManagerOrAdmin);
       return res.status(200).json({ success: true, message: 'All notifications marked as read' });
     } catch (error) {
       next(error);
@@ -76,8 +76,8 @@ class ReportController {
 
   markOneRead = async (req, res, next) => {
     try {
-      const isAdmin = req.user.roles && req.user.roles.includes('ADMIN');
-      await reportService.markOneRead(req.user.id, req.params.id, isAdmin);
+      const isManagerOrAdmin = req.user.roles && (req.user.roles.includes('ADMIN') || req.user.roles.includes('ASSET_MANAGER'));
+      await reportService.markOneRead(req.user.id, req.params.id, isManagerOrAdmin);
       return res.status(200).json({ success: true, message: 'Notification marked as read.' });
     } catch (error) {
       next(error);

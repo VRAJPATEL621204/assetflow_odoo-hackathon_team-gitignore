@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
 import API_BASE_URL from '../config/api';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation, Outlet, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard,
@@ -115,9 +115,7 @@ const MainLayout = () => {
         <div>
           {/* Logo */}
           <div className="h-16 flex items-center px-6 border-b border-hairline-violet gap-2">
-            <div className="w-8 h-8 rounded bg-accent-lime flex items-center justify-center text-primary font-bold">
-              AF
-            </div>
+            <img src="/logo.png" alt="Logo" className="w-8 h-8 object-contain rounded-full bg-primary/40 border border-hairline-violet p-1" />
             <span className="text-xl font-bold tracking-tight text-white">AssetFlow</span>
           </div>
 
@@ -182,7 +180,7 @@ const MainLayout = () => {
               >
                 <BellRing className="w-5 h-5" />
                 {unreadCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 min-w-[15px] h-[15px] bg-accent-pink text-[9px] font-bold text-white flex items-center justify-center rounded-full px-0.5 border border-ink-deep">
+                  <span className="absolute -top-0.5 -right-0.5 min-w-[15px] h-[15px] bg-[#fa6e39] text-[9px] font-bold text-white flex items-center justify-center rounded-full px-0.5 border border-ink-deep">
                     {unreadCount}
                   </span>
                 )}
@@ -212,7 +210,7 @@ const MainLayout = () => {
                         notifications.slice(0, 5).map((n) => (
                           <div 
                             key={n.id} 
-                            className={`p-3 text-xs flex justify-between items-start gap-2 hover:bg-primary/20 transition-colors ${
+                            className={`p-3 text-xs flex justify-between items-start gap-2 hover:bg-primary/20 transition-colors group ${
                               n.isRead ? 'text-on-dark-muted bg-transparent' : 'text-white bg-accent-violet-deep/5 font-medium'
                             }`}
                           >
@@ -232,7 +230,7 @@ const MainLayout = () => {
                             {!n.isRead && (
                               <button
                                 onClick={() => handleMarkSingleRead(n.id)}
-                                className="p-1 rounded-full border border-hairline-violet/50 hover:text-accent-lime hover:border-accent-lime transition-all mt-0.5 flex-shrink-0"
+                                className="p-1 rounded-full border border-hairline-violet/50 hover:text-accent-lime hover:border-accent-lime transition-all mt-0.5 flex-shrink-0 opacity-0 group-hover:opacity-100"
                                 title="Mark as read"
                               >
                                 <Check className="w-3 h-3" />

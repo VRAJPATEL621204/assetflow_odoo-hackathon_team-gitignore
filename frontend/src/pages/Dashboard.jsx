@@ -1,12 +1,15 @@
 import API_BASE_URL from '../config/api';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { 
-  CheckCircle2, 
-  ArrowRightLeft, 
-  Wrench, 
-  CalendarDays, 
+import {
+  PackageCheck,
+  UserCheck,
+  Wrench,
+  CalendarCheck,
+  CalendarDays,
   AlertTriangle,
+  RefreshCw,
+  Undo2,
   FolderPlus,
   PlusCircle,
   Bell,
@@ -17,7 +20,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  
+
   const [metrics, setMetrics] = useState({
     assetsAvailable: 0,
     assetsAllocated: 0,
@@ -71,12 +74,12 @@ const Dashboard = () => {
   }, [token]);
 
   const kpis = [
-    { name: 'Assets Available', value: metrics.assetsAvailable.toString(), change: 'Good condition', icon: CheckCircle2, color: 'text-accent-lime' },
-    { name: 'Assets Allocated', value: metrics.assetsAllocated.toString(), change: 'Assigned to staff', icon: ArrowRightLeft, color: 'text-accent-violet' },
-    { name: 'Maintenance Today', value: metrics.maintenanceToday.toString(), change: 'Active repairs', icon: Wrench, color: 'text-accent-pink' },
-    { name: 'Active Bookings', value: metrics.activeBookings.toString(), change: 'Resource rooms/cars', icon: CalendarDays, color: 'text-white' },
-    { name: 'Pending Transfers', value: metrics.pendingTransfers.toString(), change: 'Awaiting approvals', icon: ArrowRightLeft, color: 'text-accent-violet-mid' },
-    { name: 'Upcoming Returns', value: metrics.upcomingReturns.toString(), change: 'Due this week', icon: CalendarDays, color: 'text-accent-lime' },
+    { name: 'Assets Available', value: metrics.assetsAvailable.toString(), change: 'Good condition', icon: PackageCheck, color: 'text-accent-lime bg-accent-violet-deep/50 border-accent-lime/25' },
+    { name: 'Assets Allocated', value: metrics.assetsAllocated.toString(), change: 'Assigned to staff', icon: UserCheck, color: 'text-accent-violet bg-accent-violet/10 border-accent-violet/20' },
+    { name: 'Maintenance Today', value: metrics.maintenanceToday.toString(), change: 'Active repairs', icon: Wrench, color: 'text-accent-pink bg-accent-pink/10 border-accent-pink/20' },
+    { name: 'Active Bookings', value: metrics.activeBookings.toString(), change: 'Resource rooms/cars', icon: CalendarCheck, color: 'text-accent-violet-mid bg-accent-violet-mid/10 border-accent-violet-mid/20' },
+    { name: 'Pending Transfers', value: metrics.pendingTransfers.toString(), change: 'Awaiting approvals', icon: RefreshCw, color: 'text-accent-violet bg-accent-violet/10 border-accent-violet/20' },
+    { name: 'Upcoming Returns', value: metrics.upcomingReturns.toString(), change: 'Due this week', icon: Undo2, color: 'text-accent-lime bg-accent-violet-deep/50 border-accent-lime/25' },
   ];
 
   return (
@@ -112,7 +115,7 @@ const Dashboard = () => {
                 <div className="text-3xl font-bold text-white">{kpi.value}</div>
                 <span className="text-xs text-on-dark-muted block">{kpi.change}</span>
               </div>
-              <div className={`p-3 bg-primary rounded border border-hairline-violet ${kpi.color}`}>
+              <div className={`p-3 rounded border ${kpi.color}`}>
                 <Icon className="w-6 h-6" />
               </div>
             </div>
@@ -125,22 +128,22 @@ const Dashboard = () => {
         {/* Quick Actions */}
         <div className="bg-ink-deep border border-hairline-violet rounded-lg p-6 space-y-4 h-fit">
           <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Quick Actions</h3>
-          <button 
-            onClick={() => navigate('/assets')} 
+          <button
+            onClick={() => navigate('/assets')}
             className="w-full flex items-center gap-3 bg-primary hover:bg-accent-violet-deep/20 border border-hairline-violet text-white px-4 py-3 rounded text-sm font-medium transition-colors"
           >
             <FolderPlus className="w-4 h-4 text-accent-lime" />
             Register Asset
           </button>
-          <button 
-            onClick={() => navigate('/booking')} 
+          <button
+            onClick={() => navigate('/booking')}
             className="w-full flex items-center gap-3 bg-primary hover:bg-accent-violet-deep/20 border border-hairline-violet text-white px-4 py-3 rounded text-sm font-medium transition-colors"
           >
             <PlusCircle className="w-4 h-4 text-accent-lime" />
             Book Resource
           </button>
-          <button 
-            onClick={() => navigate('/maintenance')} 
+          <button
+            onClick={() => navigate('/maintenance')}
             className="w-full flex items-center gap-3 bg-primary hover:bg-accent-pink/10 border border-hairline-violet text-white px-4 py-3 rounded text-sm font-medium transition-colors"
           >
             <Wrench className="w-4 h-4 text-accent-pink" />
@@ -152,39 +155,37 @@ const Dashboard = () => {
         <div className="bg-ink-deep border border-hairline-violet rounded-lg p-6 lg:col-span-2 space-y-4">
           <div className="flex justify-between items-center mb-2">
             <h3 className="text-sm font-bold text-white uppercase tracking-wider">Recent Notifications</h3>
-            <button 
+            <button
               onClick={() => navigate('/notifications')}
               className="text-xs text-accent-lime font-bold hover:underline"
             >
               View All
             </button>
           </div>
-          
+
           <div className="space-y-3">
             {notifications.length > 0 ? (
               notifications.map((n) => {
                 const isOverdue = n.type === 'OVERDUE';
                 const isPending = n.type === 'REQUEST_PENDING';
                 const isBooking = n.type === 'BOOKING_START';
-                
+
                 return (
-                  <div 
-                    key={n.id} 
-                    className={`flex items-start gap-3 p-3 rounded border text-xs transition-colors ${
-                      n.isRead 
-                        ? 'bg-primary/5 border-hairline-violet/10' 
+                  <div
+                    key={n.id}
+                    className={`flex items-start gap-3 p-3 rounded border text-xs transition-colors ${n.isRead
+                        ? 'bg-primary/5 border-hairline-violet/10'
                         : 'bg-accent-violet-deep/5 border-accent-violet/30'
-                    }`}
+                      }`}
                   >
-                    <div className={`p-1.5 rounded mt-0.5 border ${
-                      isOverdue 
-                        ? 'bg-accent-pink/10 text-accent-pink border-accent-pink/20' 
-                        : isPending 
-                        ? 'bg-accent-violet/10 text-accent-violet border-accent-violet/20' 
-                        : isBooking 
-                        ? 'bg-accent-lime/10 text-accent-lime border-accent-lime/20' 
-                        : 'bg-white/5 text-on-dark-muted border-hairline-violet/10'
-                    }`}>
+                    <div className={`p-1.5 rounded mt-0.5 border ${isOverdue
+                        ? 'bg-accent-pink/10 text-accent-pink border-accent-pink/20'
+                        : isPending
+                          ? 'bg-accent-violet/10 text-accent-violet border-accent-violet/20'
+                          : isBooking
+                            ? 'bg-accent-lime/10 text-accent-lime border-accent-lime/20'
+                            : 'bg-white/5 text-on-dark-muted border-hairline-violet/10'
+                      }`}>
                       {isOverdue ? (
                         <AlertTriangle className="w-3.5 h-3.5" />
                       ) : isPending ? (

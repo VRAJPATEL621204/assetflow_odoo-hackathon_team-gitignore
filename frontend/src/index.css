@@ -1,22 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #150f23;
-  --color-ink-deep: #1f1633;
-  --color-accent-lime: #c2ef4e;
-  --color-accent-pink: #fa7faa;
-  --color-accent-violet: #6a5fc1;
-  --color-accent-violet-deep: #422082;
-  --color-accent-violet-mid: #79628c;
-  --color-surface-canvas-dark: #1f1633;
-  --color-surface-canvas-light: #ffffff;
-  --color-hairline-violet: #362d59;
-  --color-hairline-cool: #cfcfdb;
-  --color-hairline-cloud: #e5e7eb;
+  --color-primary: #f4f7f6;
+  --color-ink-deep: #ffffff;
+  --color-accent-lime: #00684a;
+  --color-accent-pink: #38bdf8;
+  --color-accent-violet: #dc2626;
+  --color-accent-violet-deep: #c3f0d2;
+  --color-accent-violet-mid: #5c6c7a;
+  --color-surface-canvas-dark: #f4f7f6;
+  --color-surface-canvas-light: #001e2b;
+  --color-hairline-violet: #e1e5e8;
+  --color-hairline-cool: #c1ccd6;
+  --color-hairline-cloud: #eceff1;
+  --color-on-dark-muted: #5c6c7a;
+  --color-white: #001e2b;
 
-  --font-display: "Sentry Display", "Rubik", "system-ui", sans-serif;
-  --font-sans: "Rubik", "-apple-system", "system-ui", sans-serif;
-  --font-mono: "Monaco", monospace;
+  --font-display: "Euclid Circular A", "Rubik", "system-ui", sans-serif;
+  --font-sans: "Euclid Circular A", "Rubik", "-apple-system", "system-ui", sans-serif;
+  --font-mono: "Source Code Pro", "Monaco", monospace;
 }
 
 /* Base styles and defaults */
@@ -35,20 +37,20 @@ html, body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1f1633;
+  background: #f4f7f6;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #362d59;
+  background: #c1ccd6;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #6a5fc1;
+  background: #00684a;
 }
 
 /* Firefox compatibility */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #362d59 #1f1633;
+  scrollbar-color: #c1ccd6 #f4f7f6;
 }

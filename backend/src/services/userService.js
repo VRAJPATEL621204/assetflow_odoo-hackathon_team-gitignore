@@ -78,6 +78,22 @@ class UserService {
     const { passwordHash: _, ...userWithoutPassword } = user;
     return userWithoutPassword;
   }
+
+  async resetUserPassword(email, newPassword) {
+    const user = await userRepository.findByEmail(email);
+    if (!user) {
+      throw new Error('No user registered with this email address');
+    }
+    const salt = await bcrypt.genSalt(10);
+    const passwordHash = await bcrypt.hash(newPassword, salt);
+
+    const prisma = require('../config/prisma');
+    await prisma.user.update({
+      where: { email },
+      data: { passwordHash }
+    });
+    return true;
+  }
 }
 
 module.exports = new UserService();
