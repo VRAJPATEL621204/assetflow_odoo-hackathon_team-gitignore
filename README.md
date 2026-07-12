@@ -1,0 +1,1 @@
+# assetflow_odoo-hackathon_team-gitignore
