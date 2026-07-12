@@ -40,6 +40,7 @@ services:
       RATE_LIMIT_MAX: 100
     ports:
       - "5000:5000"
+      - "5555:5555"     # Prisma Studio
     depends_on:
       postgres:
         condition: service_healthy

@@ -1,6 +1,6 @@
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL") // Falls back to docker-compose env or default below
+  url      = env("DATABASE_URL")
 }
 
 generator client {
