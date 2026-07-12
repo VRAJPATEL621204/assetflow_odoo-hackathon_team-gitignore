@@ -40,7 +40,6 @@ services:
       RATE_LIMIT_MAX: 100
     ports:
       - "5000:5000"
-      - "5555:5555"     # Prisma Studio
     depends_on:
       postgres:
         condition: service_healthy
@@ -61,6 +60,24 @@ services:
       - "3000:80"
     depends_on:
       - backend
+    restart: unless-stopped
+
+  # ─────────────────────────────────────────
+  # 4. Prisma Studio (optional DB viewer)
+  # ─────────────────────────────────────────
+  prisma-studio:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: assetflow-prisma-studio
+    environment:
+      DATABASE_URL: "postgresql://cde:cde_secret@postgres:5432/company_discovery?schema=public"
+    ports:
+      - "5555:5555"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: npx prisma studio --port 5555 --browser none
     restart: unless-stopped
 
 volumes:
