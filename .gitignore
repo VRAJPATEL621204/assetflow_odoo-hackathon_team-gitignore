@@ -1,0 +1,10 @@
+.agents/
+DESIGN.md
+node_modules/
+.env
+dist/
+.env.local
+.env.*.local
+*.excalidraw
+/bruno
+/testingfile
