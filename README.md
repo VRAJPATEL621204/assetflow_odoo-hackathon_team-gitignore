@@ -496,7 +496,7 @@ docker-compose down -v
 - ML-based predictions (asset failure, utilization forecasting)
 
 ---
-Made by Team: gitignore
+
 ## Team
 
 **Team gitignore** — Built during the Odoo Hackathon 2026
